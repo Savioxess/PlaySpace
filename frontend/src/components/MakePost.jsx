@@ -26,7 +26,7 @@ function MakePost(props) {
         publishPost(post)
     }
     return (
-        <div className='bg-gray-900 flex flex-col items-center mt-5 w-4/5 px-3 rounded-md'>
+        <div className='flex flex-col items-center mt-5 w-11/12 px-3 rounded-md'>
             <form className='w-full mb-2' onSubmit={handlePost}>
             <h1 className='text-white text-xl font-bold mb-2 mt-2'>Connect With The Community</h1>
                 <textarea style={{ "resize": 'none' }} className='rounded-lg w-full text-white p-2 bg-gray-800' name="body" id="body" cols="30" rows="8" placeholder="Post Something"></textarea>
