@@ -76,7 +76,6 @@ router.post('/publishpost', fetchuser, async (req, res) => {
                 return res.json({msg: "success", type: "green"})
             }
 
-            console.log("Nigga why u makin a normal post when theres a fucking file");
             let post = await Posts.create({
                 user: req.user.id,
                 author: req.body.author,
@@ -89,33 +88,6 @@ router.post('/publishpost', fetchuser, async (req, res) => {
             res.json({ post })
 
         })
-        //File Exists
-        /* console.log("Bruh made it here");
-        upload(req, res, (err) => {
-            if (err) {
-                console.log(err);
-                return res.status(400).json({ msg: "Some Error Occured", type: "red" })
-            }
-
-            console.log(req.file);
-            const newImage = new Posts({
-                user: req.user.id,
-                author: author,
-                body: body,
-                image: {
-                    name: req.body.name,
-                    image: {
-                        data: req.file.filename,
-                        contentType: 'image/jpg'
-                    }
-                },
-                game: game
-            })
-
-            newImage.save().then(() => {
-                return res.json({ msg: "Post Successfull Posted" }).catch(err => console.log(err))
-            })
-        }) */
     }
     catch (e) {
         return res.status(500).json({ error: "Some Internal Error Occured" })
@@ -142,8 +114,36 @@ router.put('/likepost', fetchuser, async (req, res) => {
         })
     }
     catch {
-        return res.json("INternal eorror")
+        return res.status(500).json("Internal error")
     }
 })
+
+//Route3 Get Users Posts [LOGIN REQUIRED]
+router.get('/userposts', fetchuser, async(req, res) => {
+    try{
+        const userId = req.user.id
+
+        let postList = await Posts.find({user: userId})
+
+        let list = []
+
+        for (let i = 0; i < postList.length; i++) {
+            list.push([postList[i]])
+
+            for (let j = 0; j < postList[i].likedBy.length; j++) {
+                if (postList[i].likedBy[j] == req.user.id) {
+                    list[i].push(true)
+                }
+            }
+        }
+
+        res.json({ list })
+    }
+    catch(e){
+        return res.status(500).json("Internal error")
+    }
+})
+
+//Route5 Delete Post WORKING
 
 module.exports = router

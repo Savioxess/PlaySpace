@@ -27,8 +27,6 @@ function Post(props) {
             }
 
             setImage(window.btoa(binary))
-            //const base64String = btoa(String.fromCharCode(...new Uint8Array((props.image.data.data))))
-            //setImage(base64String)
         }
     }, [props])
     return (
@@ -41,7 +39,7 @@ function Post(props) {
                
                 <div className='flex items-center'>
                     <h1 className='text-white mx-2'>{props.likes}</h1>
-                    <button onClick={handleLike} className={`text-2xl ${props.likedByUser ? 'text-fuchsia-500' : 'text-gray-400'}`}><i className="fa-solid fa-star"></i></button>
+                    <button onClick={handleLike} className={`text-xl ${props.likedByUser ? 'text-fuchsia-500' : 'text-gray-400'}`}><i class="fa-solid fa-heart"></i></button>
                 </div>
 
             </div>

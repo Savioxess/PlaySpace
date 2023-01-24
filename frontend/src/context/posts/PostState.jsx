@@ -3,6 +3,7 @@ import PostContext from './PostContext';
 
 const PostState = (props) => {
     let initials = []
+    let userPostsInitials = []
 
     const getPosts = async () => {
         const data = await fetch(`http://localhost:3000/api/posts/fetchallposts`, {
@@ -18,6 +19,7 @@ const PostState = (props) => {
     }
 
     const [posts, setPosts] = useState(initials)
+    const [userPosts, setUserPosts] = useState(userPostsInitials)
 
     const publishPost = async (body) => {
         const data = await fetch('http://localhost:3000/api/posts/publishpost', {
@@ -42,10 +44,23 @@ const PostState = (props) => {
         })
 
         getPosts()
+        getUserPosts()
     }
 
+    const getUserPosts = async ()=>{
+        const data = await fetch('http://localhost:3000/api/posts/userposts', {
+            method: 'GET',
+            headers: {
+                'auth-token': localStorage.getItem('token')
+            }
+        })
+
+        const parsedData = await data.json()
+        console.log(parsedData);
+        setUserPosts(parsedData)
+    }
     return (
-        <PostContext.Provider value={{ posts, getPosts, publishPost, likePost }}>
+        <PostContext.Provider value={{ posts, getPosts, publishPost, likePost, userPosts, getUserPosts }}>
             {props.children}
         </PostContext.Provider>
     )
