@@ -36,18 +36,18 @@ function Post(props) {
             <div className='flex justify-between'>
                 <div className='flex text-white'>
                 <h2 className='font-bold text-xl text-white mr-3'>{props.author}</h2>
-                <h1 className='bg-fuchsia-500 px-2 rounded-lg'>{props.game}</h1>
+                <h1 className='bg-fuchsia-700 px-2 rounded-lg'>{props.game}</h1>
                 </div>
                
                 <div className='flex items-center'>
                     <h1 className='text-white mx-2'>{props.likes}</h1>
-                    <button onClick={handleLike} className={`text-md ${props.likedByUser ? 'text-fuchsia-500' : 'text-gray-400'}`}><i className="fa-solid fa-star"></i></button>
+                    <button onClick={handleLike} className={`text-2xl ${props.likedByUser ? 'text-fuchsia-500' : 'text-gray-400'}`}><i className="fa-solid fa-star"></i></button>
                 </div>
 
             </div>
             <p className='text-slate-400 my-2'>{props.body}</p>
             
-            {props.image && <div className='w-full max-h-96 overflow-hidden'>
+            {props.image && <div className='w-full bg-black flex justify-center max-h-96 overflow-hidden'>
                 <img className='' src={`data:image/jpg;base64,${image}`} alt="" />
             </div>}
             <h1 className='text-slate-200 mt-6'>Posted On: {props.date}</h1>

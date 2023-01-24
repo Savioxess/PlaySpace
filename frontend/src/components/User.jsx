@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 function User(props) {
     const [user, setUser] = useState({ id: "", name: "", email: "", date: "" })
-
+    const navigate = useNavigate()
     const getUserData = async () => {
         const data = await fetch('http://localhost:3000/api/auth/getuser', {
             method: 'GET',
@@ -28,6 +28,9 @@ function User(props) {
     useEffect(() => {
         if (localStorage.getItem('token')) {
             getUserData()
+        }
+        else{
+            navigate('/login')
         }
     }, [])
     return (

@@ -27,7 +27,7 @@ function PostsList(props) {
         <div className='bg-gray-800 px-2 flex flex-col rounded-sm'>
           {posts && posts.map((post, index) => {
             //
-            return <Post image={post[0].image ? post[0].image.imageData : null} key={index} date={post[0].date.slice(0, 10)} likedByUser={(post[1] ? true : false)} author={post[0].author} body={post[0].body} likes={post[0].likes} id={post[0]._id} game={post[0].game.slice(0, 10)} />
+            return <Post image={post[0].image ? post[0].image.imageData : null} key={index} date={post[0].date.slice(0, 10)} likedByUser={(post[1] ? true : false)} author={post[0].author} body={post[0].body} likes={post[0].likes} id={post[0]._id} game={post[0].game.slice(0, 15)} />
           })}
         </div>
       </div>
