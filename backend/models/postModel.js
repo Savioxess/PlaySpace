@@ -18,6 +18,15 @@ const PostSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    image: {
+        name: {
+            type: String
+        },
+        imageData: {
+            data: Buffer,
+            contentType: String
+        }
+    },
     game: {
         type: String,
         required: true

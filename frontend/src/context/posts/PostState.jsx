@@ -14,6 +14,7 @@ const PostState = (props) => {
 
         initials = await data.json();
         setPosts(initials.list)
+        
     }
 
     const [posts, setPosts] = useState(initials)
@@ -22,10 +23,9 @@ const PostState = (props) => {
         const data = await fetch('http://localhost:3000/api/posts/publishpost', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'auth-token': localStorage.getItem('token')
             },
-            body: JSON.stringify(body)
+            body: body,
         })
 
         getPosts()
