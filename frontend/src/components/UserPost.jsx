@@ -9,9 +9,9 @@ import { Buffer } from 'buffer'
 function UserPost(props) {
     const [image, setImage] = useState()
     const context = useContext(postContext)
-    const { likePost } = context
+    const { likePost, deletePost } = context
 
-    const handleLike = () => {
+    const handleLike = (e) => {
         console.log(props.id);
         likePost({ 'postId': props.id })
     }
@@ -39,7 +39,7 @@ function UserPost(props) {
                     <h1 className='bg-fuchsia-700 px-2 rounded-lg'>{props.game}</h1>
                 </div>
                 <div className='flex'>
-                    <button title='Delete Post' className='bg-red-500 text-white px-3 py-1 rounded-sm'>Delete</button>
+                    <button onClick={() => deletePost({'postId': props.id})} title='Delete Post' className='bg-red-500 text-white px-3 py-1 rounded-sm'>Delete</button>
                 </div>
             </div>
             <p className='text-slate-400 my-2'>{props.body}</p>

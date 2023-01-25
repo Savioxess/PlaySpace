@@ -28,9 +28,19 @@ const upload = multer({
 }).single('postImage')
 
 //Route1 Get All Posts 'api/posts/fetchallposts' [LOGIN REQUIRED]
-router.get('/fetchallposts', fetchuser, async (req, res) => {
+router.post('/fetchallposts', fetchuser, async (req, res) => {
     try {
-        let postList = await Posts.find().sort({ date: 'desc' })
+        let sort;
+
+        if(req.body.sort === 'likes'){
+            sort = {likes: 'desc'}
+        }else if(req.body.sort === 'date'){
+            sort={date: 'desc'}
+        }else{
+            sort={date: 'desc'}
+        }
+        let postList = await Posts.find().sort(sort)
+        //console.log(postList);
         let list = []
 
         for (let i = 0; i < postList.length; i++) {
@@ -144,6 +154,26 @@ router.get('/userposts', fetchuser, async(req, res) => {
     }
 })
 
-//Route5 Delete Post WORKING
+//Route5 Delete Post [LOGIN REQURED]
+router.delete('/deletepost', fetchuser, async (req, res) => {
+    try{
+        let userId = req.user.id
+        let postId = req.body.postId
+
+        let post = await Posts.findById(postId)
+
+        if(post.user != userId){
+            return res.status(400).json({msg: "Cannot delete other user's post"})
+        }
+
+        post = await Posts.findByIdAndDelete(postId, (err) => {
+            if (err) return res.status(400).json({msg: 'Some error occured while deleting'})
+        })
+        res.json({msg: "Successfully Deleted"})
+    }
+    catch(e){
+        return res.status(500).json("Internal error")
+    }
+})
 
 module.exports = router

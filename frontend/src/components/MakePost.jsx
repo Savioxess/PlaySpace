@@ -26,7 +26,7 @@ function MakePost(props) {
 
         const formData = new FormData()
 
-        if(file != null) {
+        if (file != null) {
             formData.append('author', parsedUserData.user.name)
             formData.append('body', event.target.body.value)
             formData.append('game', event.target.game.value)
@@ -46,17 +46,18 @@ function MakePost(props) {
             <form className='w-full mb-2' onSubmit={handlePost}>
                 <h1 className='text-white text-xl font-bold mb-2 mt-2'>Connect With The Community</h1>
                 <textarea style={{ "resize": 'none' }} className='rounded-lg w-full text-white p-2 bg-gray-800' name="body" id="body" cols="30" rows="8" placeholder="Post Something"></textarea>
-                <div className='flex items-center mb-2'>
-                    <label className='text-white bg-gray-600 px-1 cursor-pointer rounded-md text-2xl mx-1' htmlFor="postImage"><i class="fa-regular fa-image"></i></label>
-                    <input onChange={handleFileChange} className='mx-1 sm:w-1/6 w-2/6 truncate file:hidden cursor-pointer file:border-none file:text-white file:rounded-xl my-2 text-white' title='Only Image Files Accepted' id='postImage' name='postImage' accept='image/*' type='file'></input>
-                </div>
+
                 <div className='flex items-center text-sm'>
-                    <button className='bg-gray-900 text-white font-bold ml-1 shadow-xl py-0.5 px-3 text-lg rounded-sm' type="submit">Post</button>
-                    <select defaultValue='General' className='bg-gray-700 active:bg-gray-800 focus:outline-none p-1 text-white font-light text-lg mx-2 rounded-sm' name="game" id="game">
+                    <button className='bg-fuchsia-900 rounded-2xl text-white font-bold ml-1 shadow-xl py-0.5 px-3 text-lg' type="submit">Post</button>
+                    <select defaultValue='General' className='bg-gray-700 active:bg-gray-800 focus:outline-none p-1 text-white font-light text-lg mx-2 rounded-2xl' name="game" id="game">
                         <option value="General">General</option>
                         <option value="Minecraft">Minecraft</option>
                         <option value="PUBG Mobile">PUBG Mobile</option>
                     </select>
+                    <div className='flex items-center'>
+                        <label className='text-white px-1 cursor-pointer rounded-md text-2xl mx-1' htmlFor="postImage"><i class="fa-regular fa-image"></i></label>
+                        <input onChange={handleFileChange} className='mx-1 sm:w-3/6 w-3/6 truncate file:hidden cursor-pointer file:border-none file:text-white file:rounded-xl my-2 text-white' title='Only Image Files Accepted' id='postImage' name='postImage' accept='image/*' type='file'></input>
+                    </div>
                 </div>
             </form>
         </div>

@@ -7,10 +7,12 @@ const PostState = (props) => {
 
     const getPosts = async () => {
         const data = await fetch(`http://localhost:3000/api/posts/fetchallposts`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
-                'auth-token': localStorage.getItem('token')
-            }
+                'auth-token': localStorage.getItem('token'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sort)
         })
 
         initials = await data.json();
@@ -20,6 +22,7 @@ const PostState = (props) => {
 
     const [posts, setPosts] = useState(initials)
     const [userPosts, setUserPosts] = useState(userPostsInitials)
+    const [sort, setSort] = useState({sort: 'likes'})
 
     const publishPost = async (body) => {
         const data = await fetch('http://localhost:3000/api/posts/publishpost', {
@@ -59,8 +62,21 @@ const PostState = (props) => {
         console.log(parsedData);
         setUserPosts(parsedData)
     }
+
+    const deletePost = async (id) => {
+        const data = await fetch('http://localhost:3000/api/posts/deletepost', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify(id)
+        })
+
+        getUserPosts()
+    }
     return (
-        <PostContext.Provider value={{ posts, getPosts, publishPost, likePost, userPosts, getUserPosts }}>
+        <PostContext.Provider value={{ posts, getPosts, publishPost, likePost, userPosts, setSort, getUserPosts, sort, deletePost }}>
             {props.children}
         </PostContext.Provider>
     )

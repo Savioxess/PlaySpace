@@ -54,7 +54,7 @@ function User(props) {
                 <h1 className='text-white text-2xl font-bold'>Your Posts</h1>
                 {userPosts.length === 0 && <h1 className='text-gray-500 text-xl font-light mx-2 my-2'>No Posts To Display</h1>}
                 {userPosts.list && userPosts.list.map((post, index) => {
-                    return <UserPost likedByUser={(post[1] ? true : false)} likes={post[0].likes} body={post[0].body} id={post[0]._id} image={post[0].image? post[0].image.imageData: null} author={post[0].author} game={post[0].game} date={post[0].date.slice(0,10)} />
+                    return <UserPost likedByUser={(post[1] ? true : false)} key={index} likes={post[0].likes} body={post[0].body} id={post[0]._id} image={post[0].image? post[0].image.imageData: null} author={post[0].author} game={post[0].game} date={post[0].date.slice(0,10)} />
                 })}
             </div>
         </div>
